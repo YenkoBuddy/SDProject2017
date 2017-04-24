@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<link rel="stylesheet" href="headerfooter2.css">
+</head>
+<body>
+<!-- Container -->
+	<div id="container">
+	<!-- Header -->
+	  <div id="header">
+		<div id="logo">Logo</div>
+		<div id="top_info">Top Info</div>
+		<div id="navbar">
+			<ul>
+				<li><a href="URL">Link Here</a></li>
+				<li><a href="URL">Link Here</a></li>
+				<li><a href="URL">Link Here</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- Content Area -->
+	<div id="content_area">
+		<div id="banner">banner</div>
+		
+		<div id="infobox">
+			<div id="minibox"> MiniBox </div>
+		</div>
+		
+		<div id="left_col">Left Col Contents</div>
+		<div id="middle_col">Middle Col Contents</div>
+		<div id="right_col">Right Col Contents</div>
+	</div>
+
+	<div id="footer">Footer</div>
+</div> <!-- End Container -->
+</body>
+</html>
