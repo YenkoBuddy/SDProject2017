@@ -1,0 +1,75 @@
+/*------------------------------ HEADER ------------------------------*/
+#header {
+	background-color: #eee;
+	border-bottom: 10px solid red;
+	padding: 27px 0;
+	margin: -8px;/*A change that makes the margirn fit the web page*/
+}
+#header > div, #footer > div {
+	width: 920px;
+	margin: 0 auto;
+	/*padding: 0 20px;*/
+}
+/** Logo **//*
+#header .logo {
+	float: left;
+	margin-right: 20px;
+}
+#header .logo a {
+	background: url(../images/logo.png) no-repeat center top;
+	color: #000;
+	display: block;
+	font: 15px/30px 'Play';
+	height: 20px;
+	width: 76px;
+	padding-top: 68px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+*/
+/*------------------------------ FOOTER ------------------------------*/
+#footer {
+	background-color: #1e272c;
+	border-top: 10px solid blue;
+	padding: 30px 0;
+}
+/*
+#footer p {
+	font-size: 12px;
+	line-height: 30px;
+	padding-left: 10px;
+}
+#connect {
+	float: right;
+	display: inline-block;
+	margin-right: 30px;
+}
+#connect a {
+	background: url(../images/icons.png) no-repeat;
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	margin: 0 10px;
+}
+#connect a.googleplus {
+	background-position: 0 -40px;
+}
+#connect a.twitter {
+	background-position: 0 -80px;
+}
+#connect a.tumbler {
+	background-position: 0 -120px;
+}
+#connect a.facebook:hover {
+	background-position: -40px 0;
+}
+#connect a.googleplus:hover {
+	background-position: -40px -40px;
+}
+#connect a.twitter:hover {
+	background-position: -40px -80px;
+}
+#connect a.tumbler:hover {
+	background-position: -40px -120px;
+}
+*/
