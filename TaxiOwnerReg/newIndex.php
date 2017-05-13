@@ -23,6 +23,7 @@
     */
 ?>
 <!DOCTYPE html>
+<html>
 <head>
 	<title>Owner Registration</title>
 </head>
