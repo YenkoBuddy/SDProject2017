@@ -81,7 +81,7 @@
 <main>
 	<form action='createAccount.php' method='post' >
 		<h2>Create Account</h2>
-		<input type="text" name="firstName" placeholder="First Name"><br>
+		<input type="text" name="firstName" placeholder="First Name" required autofocus><br>
 		<input type="text" name="lastName" placeholder="Last Name"><br>
 		<input type="text" name="idNo" placeholder="ID Number"><br>
 		<input type="text" name="emailAddress" placeholder="Email Address"><br>
@@ -113,6 +113,7 @@
 		<input type="text" name="postalCode" placeholder="Postal Address"><br>
 		<input type="text" name="noOfTaxis" placeholder="Number of Taxis"><br>
 		<input type="password" name="password" placeholder="Password"><br>
+		<input type="password" name="confirmPassword" placeholder="Confirm Password"><br>
 		<input type="checkbox" name="termsAndConditions">Accept Terms & Conditions(Terms Link)<br>
 		<input type="submit" value="Create Account">
 	</form>
