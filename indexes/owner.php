@@ -1,15 +1,3 @@
-<?php 
-
-    require_once("./include/config.php");
-
-    if(!$web->CheckLogin())
-    {
-        $web->RedirectToURL("owner.php");
-        exit;
-    }
-
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
