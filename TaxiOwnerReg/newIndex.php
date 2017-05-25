@@ -81,14 +81,28 @@
 <main>
 	<form action='createAccount.php' method='post' >
 		<h2>Create Account</h2>
-		<input type="text" name="firstName" placeholder="First Name" required autofocus><br>
-		<input type="text" name="lastName" placeholder="Last Name"><br>
-		<input type="text" name="idNo" placeholder="ID Number"><br>
-		<input type="text" name="emailAddress" placeholder="Email Address"><br>
-		<input type="text" name="contactNumber" placeholder="Contact Number"><br>
-		<input type="text" name="address1" placeholder="Street Address"><br>
+		<select name="association" required autofocus>
+            <option value="">--Select Association--</option>
+             <?php
+                $sql =" SELECT * FROM association ORDER BY AssociationName";
+                $stmt =$conn->prepare($sql);
+                $stmt->execute();
+                while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
+                    ?>
+                    <option value="<?php echo $row['AssociationID']; ?>"><?php echo $row['AssociationName']; ?></option>
+            <?php
+                }
+            ?>
+        </select><br>
+		<input type="text" name="firstName" placeholder="First Name" required ><br>
+		<input type="text" name="lastName" placeholder="Last Name" required><br>
+		<input type="username" name="username" placeholder="Username" required><br>
+		<input type="text" name="idNo" placeholder="ID Number" required><br>
+		<input type="text" name="emailAddress" placeholder="Email Address" required><br>
+		<input type="text" name="contactNumber" placeholder="Contact Number" required><br>
+		<input type="text" name="address1" placeholder="Street Address" required><br>
 
-		<select name="province" class="province">
+		<select name="province" class="province" required>
 		<option value="">Select Province</option>
 		<?php
 			$sql="SELECT * FROM PROVINCE ORDER BY ProvinceName";
@@ -102,20 +116,18 @@
 		?>
 		</select><br>
 		
-		<select name="city" class="city">
+		<select name="city" class="city" required>
 		<option value="">Select City</option>
 		</select><br>
 
-		<select name="suburb" class="suburb">
+		<select name="suburb" class="suburb" required>
 		<option value="">Select Suburb</option>
 		</select><br>
 
-		<input type="text" name="postalCode" placeholder="Postal Address"><br>
-		<input type="text" name="noOfTaxis" placeholder="Number of Taxis"><br>
-		<input type="password" name="password" placeholder="Password"><br>
-		<input type="password" name="confirmPassword" placeholder="Confirm Password"><br>
+		<input type="password" name="password" placeholder="Password" required><br>
+		<input type="password" name="confirmPassword" placeholder="Confirm Password" required><br>
 		<input type="checkbox" name="termsAndConditions">Accept Terms & Conditions(Terms Link)<br>
-		<input type="submit" value="Create Account">
+		<input type="submit" name="submit" value="Create Account">
 	</form>
 </main>
 </body>
