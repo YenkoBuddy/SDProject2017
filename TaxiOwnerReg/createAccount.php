@@ -1,33 +1,65 @@
 <?php
 	require "connection.php"; 
 
-	#$ownerID =3;
+	$username=filter_input(INPUT_POST,'username');
+	$password=filter_input(INPUT_POST,'password');
+	$accesslevel ="1";
+
+    if(isset($_POST['submit']))
+    {
+
+        if(isset($username) AND isset($password))
+        {
+            $sql2 = "INSERT INTO logins(Username, Password, AccessLevel) VALUES(:username, :password, :accesslevel)";
+            $stmt2 = $conn->prepare($sql2);
+            $stmt2->bindParam(':username', $username);
+            $stmt2->bindParam(':password', $password);
+            $stmt2->bindParam(':accesslevel', $accesslevel);
+            $stmt2->execute();
+
+            $sql3 = "SELECT * FROM logins WHERE Username = :username AND Password=:password";
+            $stmt3 = $conn->prepare($sql3);
+            $stmt3->bindParam(':username', $username);
+            $stmt3->bindParam(':password', $password);
+            $stmt3->bindParam(':accesslevel', $accesslevel);
+            $stmt3->execute(array(':username'=>$username, ':password'=>$password));
+            $loginInfo = $stmt3->fetch(PDO::FETCH_ASSOC);
+            if(!$loginInfo)
+            {
+                $msg = "Couldn't get login info.";
+            }
+            else
+        	{
+            extract($loginInfo);
+            session_start();
+            $_SESSION["LoginID"] = $loginInfo['LoginID'];
+            $loginID = $_SESSION["LoginID"];
+        	}
+        }
 	$firstName = filter_input(INPUT_POST,'firstName');
 	$lastName =filter_input(INPUT_POST,'lastName');
 	$idNo=filter_input(INPUT_POST,'idNo');
-	$emailAddress=filter_input(INPUT_POST,'emailAddress');
 	$contactNumber=filter_input(INPUT_POST,'contactNumber');
+	$emailAddress=filter_input(INPUT_POST,'emailAddress');
 	$address1=filter_input(INPUT_POST,'address1');
 	$surburbID= filter_input(INPUT_POST,'suburb');
-	$postalCode=filter_input(INPUT_POST,'postalCode');
-	$noOfTaxis=filter_input(INPUT_POST,'noOfTaxis');
-	$password=filter_input(INPUT_POST,'password');
-	$proofOfResidence= "";
+	$associationID=filter_input(INPUT_POST,'associationID');
+	$proofOfResidence = "";
 
-	$query="INSERT INTO OWNER(FirstName, LastName, IDNo, EmailAddress, ContactNumber, Address1, SuburbID, PostalCode, NoOfTaxis, Password, ProofOfResidence) VALUES(:firstName, :lastName, :idNo, :emailAddress, :contactNumber, :address1, :surburbID, :postalCode, :noOfTaxis, :password, :proofOfResidence)";
+
+	$query="INSERT INTO owner(FirstName, LastName, IDNo, ContactNumber, EmailAddress, Address1, SuburbID, ProofOfResidence, AssociationID, LoginID) VALUES(:firstName, :lastName, :idNo, :contactNumber, :emailAddress, :address1, :surburbID, :proofOfResidence, :associationID, :loginID)";
 	$statement =$conn->prepare($query);
-	#$statement->bindParam(':ownerID', $ownerID);
 	$statement->bindParam(':firstName', $firstName);
 	$statement->bindParam(':lastName', $lastName);
 	$statement->bindParam(':idNo', $idNo);
-	$statement->bindParam(':emailAddress', $emailAddress);
 	$statement->bindParam(':contactNumber', $contactNumber);
+	$statement->bindParam(':emailAddress', $emailAddress);
 	$statement->bindParam(':address1', $address1);
 	$statement->bindParam(':surburbID', $surburbID);
-	$statement->bindParam(':postalCode', $postalCode);
-	$statement->bindParam(':noOfTaxis', $noOfTaxis);
-	$statement->bindParam(':password', $password);
 	$statement->bindParam(':proofOfResidence', $proofOfResidence);
+	$statement->bindParam(':associationID', $associationID);
+	$statement->bindParam(':loginID', $loginID);
+
 	if($statement->execute())
 	{
 		$successMSG = "new record succesfully inserted ...";
@@ -39,17 +71,6 @@
         print_r($statement->errorCode());
         print_r($statement->errorInfo());
     }
-
+}
 	
 ?>
-<!DOCTYPE html>
-<head>
-	<title>Confirm</title>
-</head>
-	
-</script>
-<body>
-<main>
-</main>
-</body>
-</html>
