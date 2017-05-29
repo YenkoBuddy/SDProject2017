@@ -1,4 +1,6 @@
 <?php
+
+        require_once 'include/connection.php';
     
         $regNo = filter_input(INPUT_POST, 'regNo');
         $type = filter_input(INPUT_POST,'type');
@@ -9,6 +11,7 @@
         $route="1";
         $licenceDisc = filter_input(INPUT_POST,'licenceDisc');
         $inspectionReport = filter_input(INPUT_POST,'inspectionReport');
+        $status = filter_input(INPUT_POST, 'status')
 
 ?>
 
@@ -19,6 +22,9 @@
 <title>Register Taxi</title>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+<body>
     <div id="header"><?php include('header.php');?></div>
 
 <form method="post" action="taxiDriverReg.php">
@@ -68,6 +74,16 @@
         <td> 
             <select name="province" style="WIDTH: 150px" onfocus="this.style.width='100px'" onmouseout="this.style.width='150px'">
                 <option>--Select Province--</option> 
+                <?php
+                    $sql="SELECT * FROM PROVINCE ORDER BY ProvinceName";
+                    $statement =$conn->prepare($sql);
+                    $statement->execute();
+                    while($row=$statement->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                <option value="<?php echo $row['ProvinceID']; ?>"><?php echo $row['ProvinceName']; ?></option>
+        <?php
+            }
+        ?>
             </select>
         </td> 
         <td> 
@@ -98,6 +114,7 @@
         <td>Headshot: </td>
         <td><input type="file" name="headshot" value="Choose File" style="text-align: right;"> *Type:JPG, PNG, JPEG, IMG </td>
     </tr>
+    <input type="hidden" name="status" value="<?php echo $status ?>">
     <tr>
         <td><input type="submit" name="btnFinish" value="Finish"></td>
     </tr>
@@ -106,4 +123,46 @@
 </form>
 <div id="footer"><?php include_once('footer.php');?></div>
 </body>
+<script type="text/javascript">
+
+    $(document).ready(function()
+    {
+        $(".province").change(function()
+        {
+            var id=$(this).val();
+            var dataString ='id='+ id;
+
+            $.ajax
+            ({
+                type: "POST",
+                url: "getAddress.php",
+                data: dataString,
+                cache: false,
+                success: function(html)
+                {
+                    $(".city").html(html);
+                }
+            });
+        });
+
+        $(".city").change(function()
+        {
+            var cID=$(this).val();
+            var dataString ='cID='+ cID;
+            $.ajax
+            ({
+                type: "POST",
+                url: "getAddress.php",
+                data: dataString,
+                cache: false,
+                success: function(html)
+                {
+                    $(".suburb").html(html);
+                }
+            });
+        });
+    });
+    
+    
+</script>
 </html>

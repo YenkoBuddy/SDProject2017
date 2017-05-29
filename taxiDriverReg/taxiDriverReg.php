@@ -6,6 +6,15 @@
 
         session_start();
 
+        $genstatus = array('valid', 'invalid',);
+        shuffle($genstatus);
+        reset($genstatus);
+
+        foreach ($genstatus as $genstatus):
+            $status = $genstatus;
+        endforeach;
+
+
         $regNo = filter_input(INPUT_POST, 'regNo');
         $type = filter_input(INPUT_POST,'type');
         $year = filter_input(INPUT_POST,'year');
@@ -30,7 +39,7 @@
         $headshot = filter_input(INPUT_POST, 'headshot');
  
 
-        $sql = "INSERT INTO application(RegNo, Type, Year, Model, Description, RouteID, ownerID, FirstName, lastName, IDNo, ContactNumber, EmailAddress, Address1, SuburbID, ProofOfResidence, DriversLicence,PrDP, Photo) VALUES(:regNo, :type, :year, :model, :description, :route, :ownerID, :firstname, :lastName, :idNo, :contactNumber, :email, :address1, :suburb, :res, :licence, :prdp, :headshot)";
+        $sql = "INSERT INTO application(RegNo, Type, Year, Model, Description, RouteID, ownerID, FirstName, lastName, IDNo, ContactNumber, EmailAddress, Address1, SuburbID, ProofOfResidence, DriversLicence,PrDP, Photo, ValidationStatus) VALUES(:regNo, :type, :year, :model, :description, :route, :ownerID, :firstname, :lastName, :idNo, :contactNumber, :email, :address1, :suburb, :res, :licence, :prdp, :headshot, :status)";
 
 
         $stmt = $conn->prepare($sql);
@@ -54,16 +63,26 @@
             $stmt->bindParam(':licence',$licence);
             $stmt->bindParam(':prdp',$prdp);
             $stmt->bindParam(':headshot',$headshot);
+            $stmt->bindParam(':status', $status);
 
             if($stmt->execute())
             {
-                $successMSG = "new record succesfully inserted ...";
+                $MSG = "new record succesfully inserted ...";
               
             }
             else
             {
-                $errMSG = "error while inserting....";
+                $MSG = "error while inserting....";
             }
        
             
     ?>
+    <!DOCTYPE html>
+    <html>
+
+    <body>
+        <?php echo $status ; ?>
+                <?php echo $MSG ; ?>
+
+    </body>
+    </html>
