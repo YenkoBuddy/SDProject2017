@@ -1,18 +1,36 @@
+/* the styles for the html elements */
+body{
+    background-color: white;
+}
 aside {
-    float: left;
-    margin: 0 1.5%;
-    width: 25%;
+    float: right;
+    width: 500px;
 }
 section {
-  float: left;
-}
-
-
-.midde {
     float: left;
-    width: 100px;
-    padding-bottom: 1.5em;
+    width: 500px;
+}
+.ratings {
+    float: right;
+
+}
+br {
+    clear: left;
+}
+table {
+    border-collapse: collapse;
+}
+/* the styles for classes */
+
+.right {
+    text-align: right;
+}
+.center-text {
+    text-align: center;
+}
+.tab {
+    padding-left:15em;
 }
 .figures{
-	font-size:25px;
+    font-size:25px;
 }

@@ -47,12 +47,12 @@ $ratingsInfo= $stmt->fetchAll();
 
           // the following line will be used to slice the Pie chart
 
-          $temp[] = array('h' => (string) $r['DriversName']); 
+          $temp[] = array('v' => (string) $r['DriversName']); 
 
           // Values of each slice
 
-          $temp[] = array('h' => (int) $r['AmountOfRatings']); 
-          $temp[] = array('h' => (int) $r['AverageRating']); 
+          $temp[] = array('v' => (int) $r['AmountOfRatings']); 
+          $temp[] = array('v' => (int) $r['AverageRating']); 
 
           $rows[] = array('c' => $temp);
         }
@@ -71,8 +71,6 @@ $ratingsInfo= $stmt->fetchAll();
 
 
 	</style>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-
 	        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script type="text/javascript">
@@ -83,18 +81,20 @@ $ratingsInfo= $stmt->fetchAll();
 
         function drawChart() {
 
-          // Create data table out of JSON data loaded from server.
+          // Create our data table out of JSON data loaded from server.
           var data = new google.visualization.DataTable(<?=$jsonTable?>);
           var options = {
                title: 'Ratings of Drivers',
               is3D: 'true',
               width: 600,
-              height: 350,
-              {hAxis: { format:'decimal'} }
-            };
+              height: 350
+          };
+          var formatter1 = new google.visualization.NumberFormat({decimalSymbol:'.'});
+formatter1.format(data, 2);
           // Instantiate and draw our chart, passing in some options.
-         
-          var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+          // Do not forget to check your div ID
+          var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
           chart.draw(data, options);
         }
         </script>
